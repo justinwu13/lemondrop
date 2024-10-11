@@ -10,4 +10,4 @@ The solver is quite rough around the edges, wrote it quite long ago. Uses a dyna
 
 The `lemondropodds.py` file calculates the expected values of all game states and produces a text file `dropsodds.txt` that displays the results.
 
-The `lemondropsolver.py` file calculates the expected values of all game states and stores all optimal decisions. The file `dropsolver.txt` is produced which displays the results in a table.
+The `lemondropsolver.py` file calculates the expected values of all game states and stores all optimal decisions. The file `dropsolver.txt` is produced which displays the results in a table. The table is read by first finding your game state - for instance, 101101010111 indicates that you have 1, 3, 4, 6, 8, 10, 11, 12 still available and 2, 5, 7, 9 unavailable. Then, find the column for the dice roll that you receive to find the optimal decision. A 0 means that you have no possible moves, and have lost. The expected values are also shown in the file - as you can see, you start with an expected value of 0.00286 which means you have a 0.286% (1 in 350) chance of rolling well enough to have a winnable game.

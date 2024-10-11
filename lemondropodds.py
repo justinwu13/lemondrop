@@ -26,159 +26,159 @@ prob_dict = {2: 1/36,
              11: 2/36, 
              12: 1/36}
 
-xValueDict = {0: 1}
+x_value_dict = {0: 1}
 
-def intToBinary(int): # retrieves the binary representation of game state (1 for available, 0 for unavailable)
+def int_to_bin(int): # retrieves the binary representation of game state (1 for available, 0 for unavailable)
     return f'{int:012b}'
 
-def getXValues(state): # returns the possible xValues (expected values) for each roll. Index 2 = xValue if a 2 is rolled with the current state, etc.
-    dropState = intToBinary(state)
-    xValues = [0, 0]
+def get_x_values(state): # returns the possible x_values (expected values) for each roll. Index 2 = xValue if a 2 is rolled with the current state, etc.
+    drop_state = int_to_bin(state)
+    x_values = [0, 0]
     
     # if you roll 2
-    if dropState[1] == '1': # 2 available
-        xValues.append(getXValue(state - 1024))
+    if drop_state[1] == '1': # 2 available
+        x_values.append(get_x_value(state - 1024))
     else:
-        xValues.append(0)
+        x_values.append(0)
     
     # if you roll 3
-    possibleMoves3 = [0]
-    if dropState[0] == '1' and dropState[1] == '1': # 1 and 2 available
-        possibleMoves3.append(getXValue(state - 3072))
-    if dropState[2] == '1': # 3 available
-        possibleMoves3.append(getXValue(state - 512))
-    xValues.append(np.max(possibleMoves3))
+    possible_moves_3 = [0]
+    if drop_state[0] == '1' and drop_state[1] == '1': # 1 and 2 available
+        possible_moves_3.append(get_x_value(state - 3072))
+    if drop_state[2] == '1': # 3 available
+        possible_moves_3.append(get_x_value(state - 512))
+    x_values.append(np.max(possible_moves_3))
 
     # if you roll 4
-    possibleMoves4 = [0]
-    if dropState[0] == '1' and dropState[2] == '1': # 1 and 3 available
-        possibleMoves4.append(getXValue(state - 2560))
-    if dropState[3] == '1': # 4 available
-        possibleMoves4.append(getXValue(state - 256))
-    xValues.append(np.max(possibleMoves4))
+    possible_moves_4 = [0]
+    if drop_state[0] == '1' and drop_state[2] == '1': # 1 and 3 available
+        possible_moves_4.append(get_x_value(state - 2560))
+    if drop_state[3] == '1': # 4 available
+        possible_moves_4.append(get_x_value(state - 256))
+    x_values.append(np.max(possible_moves_4))
 
     # if you roll 5
-    possibleMoves5 = [0]
-    if dropState[0] == '1' and dropState[3] == '1': # 1 and 4 available
-        possibleMoves5.append(getXValue(state - 2304))
-    if dropState[1] == '1' and dropState[2] == '1': # 2 and 3 available
-        possibleMoves5.append(getXValue(state - 1536))
-    if dropState[4] == '1': # 5 available
-        possibleMoves5.append(getXValue(state - 128))
-    xValues.append(np.max(possibleMoves5))
+    possible_moves_5 = [0]
+    if drop_state[0] == '1' and drop_state[3] == '1': # 1 and 4 available
+        possible_moves_5.append(get_x_value(state - 2304))
+    if drop_state[1] == '1' and drop_state[2] == '1': # 2 and 3 available
+        possible_moves_5.append(get_x_value(state - 1536))
+    if drop_state[4] == '1': # 5 available
+        possible_moves_5.append(get_x_value(state - 128))
+    x_values.append(np.max(possible_moves_5))
 
     # if you roll 6
-    possibleMoves6 = [0]
-    if dropState[0] == '1' and dropState[4] == '1': # 1 and 5 available
-        possibleMoves6.append(getXValue(state - 2176))
-    if dropState[1] == '1' and dropState[3] == '1': # 2 and 4 available
-        possibleMoves6.append(getXValue(state - 1280))
-    if dropState[5] == '1': # 6 available
-        possibleMoves6.append(getXValue(state - 64))
-    xValues.append(np.max(possibleMoves6))
+    possible_moves_6 = [0]
+    if drop_state[0] == '1' and drop_state[4] == '1': # 1 and 5 available
+        possible_moves_6.append(get_x_value(state - 2176))
+    if drop_state[1] == '1' and drop_state[3] == '1': # 2 and 4 available
+        possible_moves_6.append(get_x_value(state - 1280))
+    if drop_state[5] == '1': # 6 available
+        possible_moves_6.append(get_x_value(state - 64))
+    x_values.append(np.max(possible_moves_6))
 
     # if you roll 7
-    possibleMoves7 = [0]
-    if dropState[0] == '1' and dropState[5] == '1': # 1 and 6 available
-        possibleMoves7.append(getXValue(state - 2112))
-    if dropState[1] == '1' and dropState[4] == '1': # 2 and 5 available
-        possibleMoves7.append(getXValue(state - 1152))
-    if dropState[2] == '1' and dropState[3] == '1': # 3 and 4 available
-        possibleMoves7.append(getXValue(state - 768))
-    if dropState[6] == '1': # 7 available
-        possibleMoves7.append(getXValue(state - 32))
-    xValues.append(np.max(possibleMoves7))
+    possible_moves_7 = [0]
+    if drop_state[0] == '1' and drop_state[5] == '1': # 1 and 6 available
+        possible_moves_7.append(get_x_value(state - 2112))
+    if drop_state[1] == '1' and drop_state[4] == '1': # 2 and 5 available
+        possible_moves_7.append(get_x_value(state - 1152))
+    if drop_state[2] == '1' and drop_state[3] == '1': # 3 and 4 available
+        possible_moves_7.append(get_x_value(state - 768))
+    if drop_state[6] == '1': # 7 available
+        possible_moves_7.append(get_x_value(state - 32))
+    x_values.append(np.max(possible_moves_7))
 
     # if you roll 8
-    possibleMoves8 = [0]
-    if dropState[0] == '1' and dropState[6] == '1': # 1 and 7 available
-        possibleMoves8.append(getXValue(state - 2080))
-    if dropState[1] == '1' and dropState[5] == '1': # 2 and 6 available
-        possibleMoves8.append(getXValue(state - 1088))
-    if dropState[2] == '1' and dropState[4] == '1': # 3 and 5 available
-        possibleMoves8.append(getXValue(state - 640))
-    if dropState[7] == '1': # 8 available
-        possibleMoves8.append(getXValue(state - 16))
-    xValues.append(np.max(possibleMoves8))
+    possible_moves_8 = [0]
+    if drop_state[0] == '1' and drop_state[6] == '1': # 1 and 7 available
+        possible_moves_8.append(get_x_value(state - 2080))
+    if drop_state[1] == '1' and drop_state[5] == '1': # 2 and 6 available
+        possible_moves_8.append(get_x_value(state - 1088))
+    if drop_state[2] == '1' and drop_state[4] == '1': # 3 and 5 available
+        possible_moves_8.append(get_x_value(state - 640))
+    if drop_state[7] == '1': # 8 available
+        possible_moves_8.append(get_x_value(state - 16))
+    x_values.append(np.max(possible_moves_8))
 
     # if you roll 9
-    possibleMoves9 = [0]
-    if dropState[0] == '1' and dropState[7] == '1': # 1 and 8 available
-        possibleMoves9.append(getXValue(state - 2064))
-    if dropState[1] == '1' and dropState[6] == '1': # 2 and 7 available
-        possibleMoves9.append(getXValue(state - 1056))
-    if dropState[2] == '1' and dropState[5] == '1': # 3 and 6 available
-        possibleMoves9.append(getXValue(state - 576))
-    if dropState[3] == '1' and dropState[4] == '1': # 4 and 5 available
-        possibleMoves9.append(getXValue(state - 384))
-    if dropState[8] == '1': # 9 available
-        possibleMoves9.append(getXValue(state - 8))
-    xValues.append(np.max(possibleMoves9))
+    possible_moves_9 = [0]
+    if drop_state[0] == '1' and drop_state[7] == '1': # 1 and 8 available
+        possible_moves_9.append(get_x_value(state - 2064))
+    if drop_state[1] == '1' and drop_state[6] == '1': # 2 and 7 available
+        possible_moves_9.append(get_x_value(state - 1056))
+    if drop_state[2] == '1' and drop_state[5] == '1': # 3 and 6 available
+        possible_moves_9.append(get_x_value(state - 576))
+    if drop_state[3] == '1' and drop_state[4] == '1': # 4 and 5 available
+        possible_moves_9.append(get_x_value(state - 384))
+    if drop_state[8] == '1': # 9 available
+        possible_moves_9.append(get_x_value(state - 8))
+    x_values.append(np.max(possible_moves_9))
 
     # if you roll 10
-    possibleMoves10 = [0]
-    if dropState[0] == '1' and dropState[8] == '1': # 1 and 9 available
-        possibleMoves10.append(getXValue(state - 2056))
-    if dropState[1] == '1' and dropState[7] == '1': # 2 and 8 available
-        possibleMoves10.append(getXValue(state - 1040))
-    if dropState[2] == '1' and dropState[6] == '1': # 3 and 7 available
-        possibleMoves10.append(getXValue(state - 544))
-    if dropState[3] == '1' and dropState[5] == '1': # 4 and 6 available
-        possibleMoves10.append(getXValue(state - 320))
-    if dropState[9] == '1': # 10 available
-        possibleMoves10.append(getXValue(state - 4))
-    xValues.append(np.max(possibleMoves10))
+    possible_moves_10 = [0]
+    if drop_state[0] == '1' and drop_state[8] == '1': # 1 and 9 available
+        possible_moves_10.append(get_x_value(state - 2056))
+    if drop_state[1] == '1' and drop_state[7] == '1': # 2 and 8 available
+        possible_moves_10.append(get_x_value(state - 1040))
+    if drop_state[2] == '1' and drop_state[6] == '1': # 3 and 7 available
+        possible_moves_10.append(get_x_value(state - 544))
+    if drop_state[3] == '1' and drop_state[5] == '1': # 4 and 6 available
+        possible_moves_10.append(get_x_value(state - 320))
+    if drop_state[9] == '1': # 10 available
+        possible_moves_10.append(get_x_value(state - 4))
+    x_values.append(np.max(possible_moves_10))
 
     # if you roll 11
-    possibleMoves11 = [0]
-    if dropState[0] == '1' and dropState[9] == '1': # 1 and 10 available
-        possibleMoves11.append(getXValue(state - 2052))
-    if dropState[1] == '1' and dropState[8] == '1': # 2 and 9 available
-        possibleMoves11.append(getXValue(state - 1032))
-    if dropState[2] == '1' and dropState[7] == '1': # 3 and 8 available
-        possibleMoves11.append(getXValue(state - 528))
-    if dropState[3] == '1' and dropState[6] == '1': # 4 and 7 available
-        possibleMoves11.append(getXValue(state - 288))
-    if dropState[4] == '1' and dropState[5] == '1': # 5 and 6 available
-        possibleMoves11.append(getXValue(state - 192))
-    if dropState[10] == '1': # 11 available
-        possibleMoves11.append(getXValue(state - 2))
-    xValues.append(np.max(possibleMoves11))
+    possible_moves_11 = [0]
+    if drop_state[0] == '1' and drop_state[9] == '1': # 1 and 10 available
+        possible_moves_11.append(get_x_value(state - 2052))
+    if drop_state[1] == '1' and drop_state[8] == '1': # 2 and 9 available
+        possible_moves_11.append(get_x_value(state - 1032))
+    if drop_state[2] == '1' and drop_state[7] == '1': # 3 and 8 available
+        possible_moves_11.append(get_x_value(state - 528))
+    if drop_state[3] == '1' and drop_state[6] == '1': # 4 and 7 available
+        possible_moves_11.append(get_x_value(state - 288))
+    if drop_state[4] == '1' and drop_state[5] == '1': # 5 and 6 available
+        possible_moves_11.append(get_x_value(state - 192))
+    if drop_state[10] == '1': # 11 available
+        possible_moves_11.append(get_x_value(state - 2))
+    x_values.append(np.max(possible_moves_11))
 
     # if you roll 12
-    possibleMoves12 = [0]
-    if dropState[0] == '1' and dropState[10] == '1': # 1 and 11 available
-        possibleMoves12.append(getXValue(state - 2050))
-    if dropState[1] == '1' and dropState[9] == '1': # 2 and 10 available
-        possibleMoves12.append(getXValue(state - 1028))
-    if dropState[2] == '1' and dropState[8] == '1': # 3 and 9 available
-        possibleMoves12.append(getXValue(state - 520))
-    if dropState[3] == '1' and dropState[7] == '1': # 4 and 8 available
-        possibleMoves12.append(getXValue(state - 272))
-    if dropState[4] == '1' and dropState[6] == '1': # 5 and 7 available
-        possibleMoves12.append(getXValue(state - 160))
-    if dropState[11] == '1': # 11 available
-        possibleMoves12.append(getXValue(state - 1))
-    xValues.append(np.max(possibleMoves12))
+    possible_moves_12 = [0]
+    if drop_state[0] == '1' and drop_state[10] == '1': # 1 and 11 available
+        possible_moves_12.append(get_x_value(state - 2050))
+    if drop_state[1] == '1' and drop_state[9] == '1': # 2 and 10 available
+        possible_moves_12.append(get_x_value(state - 1028))
+    if drop_state[2] == '1' and drop_state[8] == '1': # 3 and 9 available
+        possible_moves_12.append(get_x_value(state - 520))
+    if drop_state[3] == '1' and drop_state[7] == '1': # 4 and 8 available
+        possible_moves_12.append(get_x_value(state - 272))
+    if drop_state[4] == '1' and drop_state[6] == '1': # 5 and 7 available
+        possible_moves_12.append(get_x_value(state - 160))
+    if drop_state[11] == '1': # 11 available
+        possible_moves_12.append(get_x_value(state - 1))
+    x_values.append(np.max(possible_moves_12))
     
-    return xValues
+    return x_values
 
-def calcXValue(dropState):
-    xValues = getXValues(dropState)
+def calc_x_value(drop_state):
+    x_values = get_x_values(drop_state)
     sum = 0
     for i in range(2, 13):
-        sum += (prob_dict[i] * xValues[i])
+        sum += (prob_dict[i] * x_values[i])
     return sum
 
-def getXValue(dropState): # dropState: an int that represents the current state of the lemondrops when converted to binary
-    return xValueDict.get(dropState)
+def get_x_value(drop_state): # drop_state: an int that represents the current state of the lemondrops when converted to binary
+    return x_value_dict.get(drop_state)
 
 for i in range(1, 4096):
-    xValueDict[i] = calcXValue(i)
+    x_value_dict[i] = calc_x_value(i)
 
 file = open("dropsodds.txt", "w")
 
 for i in range(0, 4096):
-    file.write(f"{intToBinary(i)} | {xValueDict[i]}\n")
+    file.write(f"{int_to_bin(i)} | {x_value_dict[i]}\n")
 
 file.close()
